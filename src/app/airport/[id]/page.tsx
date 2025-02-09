@@ -1,6 +1,6 @@
 "use client";
 
-import { Wifi } from "lucide-react";
+import { ArrowLeft, Wifi } from "lucide-react";
 import { notFound } from "next/navigation";
 import { type FC, use, useState } from "react";
 import Layout from "~/_components/Layout";
@@ -39,35 +39,46 @@ const AirportPage: FC<AirportPageProps> = ({ params }) => {
   return (
     <Layout>
       <div className="space-y-10">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-teal-700">
-            {airport.name}{" "}
-            <span className="text-indigo-600">({airport.code})</span>
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Average Rating:{" "}
-            <span className="font-medium text-teal-600">
-              {airport.averageRating.toFixed(1)}
-            </span>
-            <span className="mx-2">•</span>
-            <span className="font-medium text-indigo-600">
-              {airport.submissionCount}
-            </span>{" "}
-            submissions
-          </p>
+        <div className="flex flex-col gap-6 border-b border-teal-100/50 pb-6 sm:flex-row sm:items-center sm:justify-between">
+          <Button
+            variant="ghost"
+            onClick={() => window.history.back()}
+            className="self-start text-teal-700 hover:bg-teal-50/50 sm:self-center"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+
+          <div className="flex flex-col items-center text-center">
+            <h1 className="text-xl font-bold text-teal-800 sm:text-2xl">
+              {airport.name}{" "}
+              <span className="text-indigo-700">({airport.code})</span>
+            </h1>
+            <p className="text-xs text-muted-foreground sm:text-sm">
+              Average Rating:{" "}
+              <span className="font-medium text-teal-700">
+                {airport.averageRating.toFixed(1)}
+              </span>
+              <span className="mx-2 text-teal-200">•</span>
+              <span className="font-medium text-indigo-700">
+                {airport.submissionCount}
+              </span>{" "}
+              submissions
+            </p>
+          </div>
+
+          {!showForm && (
+            <Button
+              onClick={() => setShowForm(true)}
+              className="w-full bg-gradient-to-r from-teal-600 to-indigo-600 hover:from-teal-700 hover:to-indigo-700 sm:w-auto"
+            >
+              <Wifi className="mr-2 h-4 w-4" /> Submit New WiFi Speed
+            </Button>
+          )}
         </div>
 
-        {!showForm && (
-          <Button
-            onClick={() => setShowForm(true)}
-            className="bg-gradient-to-r from-teal-500 to-indigo-500 hover:from-teal-600 hover:to-indigo-600"
-          >
-            <Wifi className="mr-2 h-4 w-4" /> Submit New WiFi Speed
-          </Button>
-        )}
-
         {showForm && (
-          <div className="rounded-lg border-2 border-teal-200 bg-white/50 p-6 shadow-lg backdrop-blur-sm">
+          <div className="rounded-lg border border-teal-100/30 bg-gradient-to-b from-white/5 to-white/10 p-6 shadow-lg backdrop-blur-sm">
             <h3 className="mb-4 text-2xl font-semibold text-teal-700">
               Submit New WiFi Speed
             </h3>
