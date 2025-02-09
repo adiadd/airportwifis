@@ -1,37 +1,38 @@
-import Link from "next/link";
+"use client";
 
-export default function HomePage() {
+import { type FC, useState } from "react";
+import AirportCard from "~/_components/AirportCard";
+import Layout from "~/_components/Layout";
+import { Search } from "~/_components/Search";
+import { airports, searchAirports } from "~/lib/mockData";
+
+const HomePage: FC = () => {
+  const [filteredAirports, setFilteredAirports] = useState(airports);
+
+  const handleSearch = (query: string) => {
+    setFilteredAirports(searchAirports(query));
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+    <Layout>
+      <div className="space-y-10">
+        <div className="space-y-2 text-center">
+          <h1 className="bg-gradient-to-r from-teal-600 to-indigo-600 bg-clip-text text-4xl font-bold text-transparent">
+            AirportWiFis
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            Find and rate airport WiFi around the world
+          </p>
+        </div>
+        <Search onSearch={handleSearch} />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {filteredAirports.map((airport) => (
+            <AirportCard key={airport.id} {...airport} />
+          ))}
         </div>
       </div>
-    </main>
+    </Layout>
   );
-}
+};
+
+export default HomePage;
