@@ -48,6 +48,8 @@ export async function POST(request: NextRequest) {
     rating,
     comment,
     imageUrl,
+    networkType: "unknown",
+    status: "approved",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     upvotes: 0,

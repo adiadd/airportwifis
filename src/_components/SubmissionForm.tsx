@@ -13,6 +13,13 @@ import {
   FormMessage,
 } from "~/_components/ui/form";
 import { Input } from "~/_components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/_components/ui/select";
 import { Textarea } from "~/_components/ui/textarea";
 
 const formSchema = z.object({
@@ -20,6 +27,7 @@ const formSchema = z.object({
   uploadSpeed: z.number().min(0),
   rating: z.number().min(1).max(5),
   comment: z.string().optional(),
+  networkType: z.enum(["free", "paid", "unknown"]),
   airportId: z.string(),
 });
 
@@ -39,6 +47,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ airportId, onSubmit }) => {
       uploadSpeed: 0,
       rating: 3,
       comment: "",
+      networkType: "unknown",
       airportId,
     },
   });
@@ -116,6 +125,31 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ airportId, onSubmit }) => {
         />
         <FormField
           control={form.control}
+          name="networkType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Network Type</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select network type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="free">Free WiFi</SelectItem>
+                  <SelectItem value="paid">Paid WiFi</SelectItem>
+                  <SelectItem value="unknown">Unknown</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                Select whether this is a free or paid WiFi network
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="comment"
           render={({ field }) => (
             <FormItem>
@@ -132,6 +166,7 @@ const SubmissionForm: FC<SubmissionFormProps> = ({ airportId, onSubmit }) => {
           <FormControl>
             <Input
               type="file"
+              accept="image/*"
               onChange={(e) => {
                 const file = e.target.files?.[0] ?? null;
                 // Handle file state if needed
