@@ -1,4 +1,4 @@
-import { Wifi } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { FC, ReactNode } from "react";
 
@@ -16,8 +16,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             href="/"
             className="flex items-center space-x-2 text-2xl font-bold text-teal-600 transition-colors hover:text-teal-700"
           >
-            <Wifi size={28} />
-            <span>AirportWiFis</span>
+            <Image
+              src="/airportwifis-logo.svg"
+              alt="airportwifis logo"
+              width={50}
+              height={50}
+              priority
+            />
+            <span>airportwifis</span>
           </Link>
           <nav>{/* Add navigation items here if needed */}</nav>
         </div>
@@ -25,7 +31,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <main className="container mx-auto flex-1 px-4 py-8">{children}</main>
       <footer className="mt-auto border-t bg-white/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} AirportWiFis
+          © {new Date().getFullYear()} airportwifis
         </div>
       </footer>
     </div>
