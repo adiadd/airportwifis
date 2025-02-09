@@ -11,6 +11,8 @@ this repo houses the code for a simple website that allows crowdsourcing of airp
 - [bun](https://bun.sh/) - fast javascript runtime and package manager
 - [react hook form](https://react-hook-form.com/) - form handling
 - [zod](https://zod.dev/) - schema validation
+- [netlify](https://netlify.app/) - hosting
+- [singlestore](https://www.singlestore.com/) - db
 
 ## todo
 
